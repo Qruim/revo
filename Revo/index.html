@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+        <link rel="stylesheet" href="css/normilize.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+
+        <title>Revo</title>
+    </head>
+    <body>
+        <aside class="side-menu">
+            <div class="cart-buttons">
+                <div class="cart-buttons__open-cart" id="cartOpen">
+                    <img src="img/IC_CART.svg" alt="cart img">
+                </div>
+                <div class="cart-buttons__burger">
+                    <div class="burger"></div>
+                </div>
+            </div>
+            <nav id="sideNav">
+                <div >
+                    <a href="#first-screen" class="button-text" onmousemove="addHover(event)" onmouseout="clearHover(event)">TRANG CHỦ</a>
+                </div>
+                <div>
+                    <a href="#coffee" class="button-text" onmousemove="addHover(event)" onmouseout="clearHover(event)">COFFEE</a>
+                </div>
+                <div>
+                    <a href="#favorite" class="button-text" onmousemove="addHover(event)" onmouseout="clearHover(event)">PHIN MẠ MÀU</a>
+                </div>
+                <div>
+                    <a href="#giftsets" class="button-text" onmousemove="addHover(event)" onmouseout="clearHover(event)">COMBO PHIN PHÊ</a>
+                </div>
+                <div>
+                    <a href="#personalized" class="button-text" onmousemove="addHover(event)" onmouseout="clearHover(event)">GIFTSET</a>
+                </div>
+            </nav>
+        </aside>  
+        <aside class="cart">
+            <div class="close-container">
+                <div class="close" id="cartClose"></div>
+            </div>
+            <h2>Your cart</h2>
+            <div class="cart-content">
+             
+
+            </div>
+            <div class="cart-info">
+                <div class="total price-product">
+                    <p class="total-title">Total</p>
+                    <p class="total-value">0$</p>
+                </div>
+                <div>
+                    <p class="button-text button">Buy now</p>
+                </div>
+            </div>
+        </aside>
+
+        <div id="wrapper">
+            <section class="first-screen" id="first-screen" >
+                <div class="text-block">
+                    <div class="wrapper">
+                        <div class="logo">
+                            <img src="img/revo_logo.svg" alt="revo logo">
+                        </div>
+                        <h1>your <span>personalized</span> coffee</h1>
+                    </div>
+                </div>
+                <div class="video">
+                    <video id="coffeeVideo" loop controls>
+                        <source src="videos/coffee_video.mp4" type="video/mp4">
+                        <p>Your browser does not support the video tag.</p>
+                    </video>
+                    <!-- <button onclick="onclick=playVideo()" id="coffeeVideoButton"></button>  -->
+                </div>
+            </section>
+            <section class="coffee">
+                <span id="coffee" class="anchor"></span>
+                <p class="subtitle">Your Personalized Coffee</p>
+                <h2>COFFEE BUILD YOUR BASE</h2>
+                <div class="coffee__list">
+                    <div class="coffee__item">
+                        <div class="coffee__img">
+                            <img src="img/coffee-img-1.svg">
+                        </div>
+                        <p class="title">Nguồn gốc</p>
+                        <p class="main-text">Những hạt cà phê Arabica, Robusta đạt chất lượng theo tiêu chuẩn quốc tế.</p>
+                    </div>
+                    <div class="coffee__item">
+                        <div class="coffee__img">
+                            <img src="img/coffee-img-2.svg">
+                        </div>
+                        <p class="title">Chất lượng</p>
+                        <p class="main-text">Từng một hạt cà phê là cả một quá trình tập trung cao độ của nghệ nhân cà phê.</p>
+                    </div>
+                    <div class="coffee__item">
+                        <div class="coffee__img">
+                            <img src="img/coffee-img-3.svg">
+                        </div>
+                        <p class="title">Các loại hạt</p>
+                        <p class="main-text">70% chất lượng tách cà phê đến từ nguồn gốc và chất lượng green bean.</p>
+                    </div>
+                    <div class="coffee__item">
+                        <div class="coffee__img">
+                            <img src="img/coffee-img-4.svg">
+                        </div>
+                        <p class="title">Pha chế</p>
+                        <p class="main-text">Những hạt cà phê được lột xác qua quá trình rang xay kỹ lưỡng và nghiêm ngặt.</p>
+                    </div>
+                </div>
+            </section>
+            <section class="favorite">
+                <span id="favorite" class="anchor"></span>
+                <p class="subtitle">Choose Your Favorite</p>
+                <h2>CHUẨN GU ĐÚNG VỊ</h2>
+                <div id="favSlider">
+                    <div class="swiper-wrapper">
+
+                    </div>
+                    <div class="favSlider-button-next button-next"></div>
+                </div>
+                <div class="bg-sm-block"></div>
+            </section>
+
+            <section class="giftsets">
+                <span id="giftsets" class="anchor"></span>
+                <p class="subtitle">Best Gift For Best Friend</p>
+                <h2>GIFTSET</h2>
+                <div class="tab-wrapper">
+                    <div id="firstTab" class="tabcontent">
+                        <div class="image-container">
+                            <img src="img/coffee-giftsets-1.svg" alt="">
+                        </div>
+                        <div class="text">
+                            <p class="price-product"></p>
+                            <h3></h3>
+                            <p class="main-text"></p>
+                        <div class="info-container">
+                                <div class="info-item">
+                                    <div class="image-container">
+                                        <img src="img/IC_coffee.svg" alt="">
+                                    </div>
+                                    <div class="text-block">
+                                        <p>Loại hạt</p>
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="image-container">
+                                        <img src="img/IC_Mountain.svg" alt="">
+                                    </div>
+                                    <div class="text-block">
+                                        <p>Độ cao</p>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="buttons">
+                                <p class="button-text add-to-cart">MUA NGAY</p>
+                                <a class="button-text details">details</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="secondTab" class="tabcontent">
+                        <div class="image-container">
+                            <img src="img/coffee-giftsets-1.svg" alt="">
+                        </div>
+                        <div class="text">
+                            <p class="price-product"></p>
+                            <h3></h3>
+                            <p class="main-text"></p>
+                        <div class="info-container">
+                                <div class="info-item">
+                                    <div class="image-container">
+                                        <img src="img/IC_coffee.svg" alt="">
+                                    </div>
+                                    <div class="text-block">
+                                        <p>Loại hạt</p>
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="image-container">
+                                        <img src="img/IC_Mountain.svg" alt="">
+                                    </div>
+                                    <div class="text-block">
+                                        <p>Độ cao</p>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="buttons">
+                                <p class="button-text add-to-cart">MUA NGAY</p>
+                                <a class="button-text details">details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="thirdTab" class="tabcontent">
+                        <div class="image-container">
+                            <img src="img/coffee-giftsets-1.svg" alt="">
+                        </div>
+                        <div class="text">
+                            <p class="price-product"></p>
+                            <h3></h3>
+                            <p class="main-text"></p>
+                        <div class="info-container">
+                                <div class="info-item">
+                                    <div class="image-container">
+                                        <img src="img/IC_coffee.svg" alt="">
+                                    </div>
+                                    <div class="text-block">
+                                        <p>Loại hạt</p>
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="image-container">
+                                        <img src="img/IC_Mountain.svg" alt="">
+                                    </div>
+                                    <div class="text-block">
+                                        <p>Độ cao</p>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="buttons">
+                                <p class="button-text add-to-cart">MUA NGAY</p>
+                                <a class="button-text details">details</a>
+                            </div>
+                        </div>                    
+                    </div>
+                    <div class="tab">
+                        <button class="tablinks" onclick="openTab(event, 'firstTab')">1</button>
+                        <button class="tablinks" onclick="openTab(event, 'secondTab')">2</button>
+                        <button class="tablinks" onclick="openTab(event, 'thirdTab')">3</button>
+                    </div>
+                </div>
+                <div class="bg-lg-block"></div>
+            </section>
+
+            <section class="personalized">
+                <span id="personalized" class="anchor"></span>
+                <p class="subtitle">Your Personalized Coffee</p>
+                <h2>COMBO PHIN PHÊ</h2>
+                <div id="persSlider">
+                    <div class="swiper-wrapper">
+
+                    </div>
+                    <div class="persSlider-button-next button-next"></div>
+                </div>
+                <div class="bg-sm-block"></div>
+            </section>
+
+
+        </div>
+        <footer>
+            <p class="main-text">© Revo Coffee Việt Nam - 2018</p>
+        </footer>
+        <script src="js/swiper.min.js"></script>
+        <script src="js/script.js"></script>
+    </body>
+</html>

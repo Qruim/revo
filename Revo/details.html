@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        *{
+            margin: 0;
+        }
+        .image-container {
+            max-width: 100%;
+            width: fit-content;
+            margin: 0 auto;
+        }
+        img{
+            max-width: 100%;
+        }
+        .buttons{
+            margin: 5% 0 0 0;
+        }
+        .main{
+            padding: 5vh 2%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+    <aside class="side-menu">
+        <div class="cart-buttons">
+            <div class="cart-buttons__open-cart" id="cartOpen">
+                <img src="img/IC_CART.svg" alt="cart img">
+            </div>
+            <div class="cart-buttons__burger">
+                <div class="burger"></div>
+            </div>
+        </div>
+        <nav id="sideNav">
+            <div>
+                <a href="#first-screen" class="button-text">TRANG CHỦ</a>
+            </div>
+            <div>
+                <a href="#coffee" class="button-text">COFFEE</a>
+            </div>
+            <div>
+                <a href="#favorite" class="button-text">PHIN MẠ MÀU</a>
+            </div>
+            <div>
+                <a href="#giftsets" class="button-text">COMBO PHIN PHÊ</a>
+            </div>
+            <div>
+                <a href="#personalized" class="button-text">GIFTSET</a>
+            </div>
+        </nav>
+    </aside>  
+    <aside class="cart">
+        <div class="close-container">
+            <div class="close" id="cartClose"></div>
+        </div>
+        <h2>Your cart</h2>
+        <div class="cart-content">
+         
+
+        </div>
+        <div class="cart-info">
+            <div class="total price-product">
+                <p class="total-title">Total</p>
+                <p class="total-value">0$</p>
+            </div>
+            <div>
+                <p class="button button-text">Buy now</p>
+            </div>
+        </div>
+    </aside>
+    <section class="main">
+
+    </section>
+    <script>
+    // cart
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', ready)
+    }else{
+        ready()
+    }
+
+    // making function 
+    async function ready() {
+
+        const shopItemDetails = JSON.parse(localStorage.shopItemDetails)[0]
+        const main = document.querySelector('.main')
+        const mainContent = document.createElement('div')
+        mainContent.classList.add('main-wrapper')
+        mainContent.innerHTML = `
+                <div class="image-container"><img src=${shopItemDetails.image}></div>
+                <div class="text">
+                    <h3>${shopItemDetails.title}</h3>
+                    <div class="prices">
+                        <p class="price-product">${shopItemDetails.price}</p>
+                        <p class="price-product old-price">${shopItemDetails.oldPrice ? shopItemDetails.oldPrice : ''}</p>
+                    </div>
+                    <p class="main-text">${shopItemDetails.mainText}</p>
+                <div class="buttons">
+                    <p class="button-text add-to-cart button">MUA NGAY</p>
+                    <div class="button">
+                        <a class="button-text">Go back</a>
+                    </div>
+                </div>
+            </div>
+
+
+        `
+        main.append(mainContent)
+
+        const goBackUrl = document.querySelector('.button a')
+        goBackUrl.href = `${window.location.origin}/index.html`
+        // creating consts
+        const cartOpen = document.querySelector('#cartOpen')
+        const cartClose = document.querySelector('#cartClose')
+        const cart = document.querySelector('.cart')
+        const sideMenu = document.querySelector('.side-menu')
+        const burger = document.querySelector('.cart-buttons__burger')
+        const navLinks = document.querySelectorAll('#sideNav a')
+        for (let idx = 0; idx < navLinks.length; idx++) {
+            const navLinkHash = navLinks[idx].href.split('#')
+            navLinks[idx].href = `${window.location.origin}/index.html#${navLinkHash[1]}`
+        }
+        // set default value of number of items in the cart
+        cartOpen.dataset.content = 0
+        // toggle class active to cart buttons open and close
+        cartOpen.addEventListener('click', () => cart.classList.toggle('active'))
+        cartClose.addEventListener('click', () => cart.classList.toggle('active'))
+        // toggle class active to burger menu button
+        burger.addEventListener('click', () => sideMenu.classList.toggle('active'))
+        // remove item
+        const removeCartButtons = document.querySelectorAll('.cart-remove')
+        for (let idx = 0; idx < removeCartButtons.length; idx++){
+            const button = removeCartButtons[idx]
+            button.addEventListener('click', removeCartItem)
+        }
+        // quantity change
+        const quantityInputs = document.querySelectorAll('.cart-box input')
+        for (let idx = 0; idx < quantityInputs.length; idx++){
+            const input = quantityInputs[idx]
+            input.addEventListener('change', quantityChanged)
+        }
+        // Add to cart
+        const addCart = document.querySelectorAll('.add-to-cart')
+        for (let idx = 0; idx < addCart.length; idx++){
+            let button = addCart[idx]
+            button.addEventListener('click', itemToAdd)
+        }
+        window.onbeforeunload = function(){
+            const purchasesInCart = document.querySelectorAll('.cart-box')
+            let cartData = []
+            purchasesInCart.forEach(item => {
+                cartData.push({
+                    // image
+                    image: item.querySelector('img').src,
+                    // title
+                    title: item.querySelector('.text-block h3').innerText,
+                    // price
+                    price: item.querySelector('.text-block p').innerText,
+                    // input
+                    input: item.querySelector('.text-block input').value,
+                })
+            })
+            localStorage.setItem("cartData", JSON.stringify(cartData))
+        }
+
+    }
+    // get data from localStorage to cart
+    window.onload = function() {
+        const cartData = JSON.parse(localStorage.cartData)
+        for (const key in cartData) {
+            const title = cartData[key].title
+            const price = cartData[key].price
+            const image = cartData[key].image
+            const input = cartData[key].input
+            addProductToCart(title, price, image, input)
+        }
+    }
+
+    // add to cart
+    function itemToAdd(event) {
+        const button = event.currentTarget
+        const productToAdd = button.parentElement
+        const title = productToAdd.parentElement.querySelector('h3').innerText
+        const price = productToAdd.parentElement.querySelector('.price-product').innerText
+        const image = productToAdd.parentElement.parentElement.querySelector('img').src
+        addProductToCart(title, price, image)
+        updateTotal()
+    }
+    function addProductToCart(title, price, image, input = 1) {
+        const cartShopBox = document.createElement('div')
+        cartShopBox.classList.add('cart-box')
+        const cartItems = document.querySelector('.cart-content')
+        const cartItemNames = cartItems.querySelectorAll('h3')
+        for (let idx = 0; idx < cartItemNames.length; idx++){
+            if (cartItemNames[idx].innerText == title) {
+                alert('You have already added this item to cart!')       
+                return     
+            }
+        }
+        cartShopBox.innerHTML = `
+            <div class="card-box-wrapper">
+                <div class="image-container">
+                    <img src="${image}" alt="">
+                </div>
+                <div class="text-block">
+                    <h3>${title}</h3>
+                    <p class="price-product">${price}</p>
+                    <input class="main-text" type="number" value="${input}">
+                </div>
+            </div>
+            <idx class='bx bxs-trash-alt cart-remove'></i>`
+        
+        cartItems.append(cartShopBox)
+        const removeButtons = cartShopBox.querySelectorAll('.cart-remove')
+        const inputs = cartShopBox.querySelectorAll('.cart-box input')
+        for (let idx = 0; idx < removeButtons.length; idx++){
+            removeButtons[idx].addEventListener('click', removeCartItem)
+            inputs[idx].addEventListener('change', quantityChanged)
+        }
+        updateTotal()
+
+    }
+    function quantityChanged(event) {
+        const input = event.currentTarget
+        if (isNaN(input.value) || input.value <= 0) {
+            input.value = 1
+        }
+        if (input.value > 99 ) {
+            input.value = 99
+        }
+
+        updateTotal()
+    }
+    // remove item from a cart function
+    function removeCartItem(event) {
+        const buttonClicked = event.currentTarget
+        buttonClicked.parentElement.remove()
+        updateTotal()
+    }
+    // update total
+    function updateTotal(){
+        const cartContent = document.querySelector('.cart')
+        const cartBoxes = cartContent.querySelectorAll('.cart-box')
+        let total = 0
+        for (let idx = 0; idx < cartBoxes.length; idx++) {
+            const cartBox = cartBoxes[idx]
+            const price = cartBox.querySelector('.price-product').innerText
+            const quantity = cartBox.querySelector('input').value
+            total += price * quantity
+            total = Math.round(total * 1000) / 1000
+        }
+        document.querySelector('#cartOpen').dataset.content = cartBoxes.length
+        cartContent.querySelector('.total-value').innerText = total + '$'
+    }
+    </script>
+</body>
+</html>
